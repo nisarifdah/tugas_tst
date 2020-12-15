@@ -1,34 +1,34 @@
 <?php 
 
 use GuzzleHttp\Client;
-
 class Mahasiswa_model extends CI_model {
-
 
     private $_client;
     public function __construct(){
         $this->_client = new Client([
-            'base_uri' => 'http://localhost:8080/uas/api/',
+            'base_uri' => 'http://localhost:8000/uas/api/',
             'auth' => ['admin','1234']
         ]);
     }
+
     public function getAllMahasiswa()
     {
-        //return $this->db->get('mahasiswa')->result_array();
+            //return $this->db->get('mahasiswa')->result_array();
 
         
 
-        $response = $this->_client->request('GET', 'Mahasiswa',[
+            $response = $this->_client->request('GET', 'Mahasiswa',[
             
-            'query' =>[
-                'X-API-KEY' => '123a'
-            ]
-            
-        ]);
+                'query' =>[
+                    'X-API-KEY' => '123a'
+                ]
+                
+            ]);
+    
+            $result  = json_decode($response->getBody()->getContents(), true);
+    
+            return $result['data'];
 
-        $result  = json_decode($response->getBody()->getContents(), true);
-
-        return $result['data'];
     }
 
     public function getMahasiswaById($id)
@@ -69,7 +69,6 @@ class Mahasiswa_model extends CI_model {
 
 
     }
-
     public function hapusDataMahasiswa($id)
     {
         // $this->db->where('id', $id);
@@ -85,8 +84,6 @@ class Mahasiswa_model extends CI_model {
 
         return $result['data'][0];
     }
-
-
 
     public function ubahDataMahasiswa()
     {
